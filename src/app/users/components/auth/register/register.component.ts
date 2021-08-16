@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Register } from 'src/app/users/models/register';
 import { AuthService } from 'src/app/users/services/auth.service';
 
@@ -9,14 +10,14 @@ import { AuthService } from 'src/app/users/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
   register = new Register();
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
   registerSubmit() {
     console.log(JSON.stringify(this.register));
     this.authService.registerUser(this.register).subscribe((res: any) => {
       console.log(JSON.stringify(res.data));
-      console.log('Anything');
+      this.router.navigate(['/users/login']);
     });
   }
 }
